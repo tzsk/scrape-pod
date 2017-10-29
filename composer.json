@@ -1,7 +1,7 @@
 {
     "name": "tzsk/scrape-pod",
     "type": "library",
-    "description": "Podcast XML Scraper for Laravel",
+    "description": "Search Podcast with Itunes and Digital Podcast. Podcast XML Scraper and Parser",
     "keywords": [
         "tzsk",
         "scrape pod",
