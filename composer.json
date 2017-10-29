@@ -1,0 +1,69 @@
+{
+    "name": "tzsk/scrape-pod",
+    "type": "library",
+    "description": "Podcast XML Scraper for Laravel",
+    "keywords": [
+        "tzsk",
+        "scrape pod",
+        "search podcast",
+        "podcast scraper",
+        "laravel podcast scraper",
+        "laravel search podcast",
+        "podcast xml reader",
+        "laravel podcast xml reader",
+        "itunes podcast search",
+        "digital podcast search"
+    ],
+    "homepage": "https://github.com/tzsk/scrape-pod",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kazi Mainuddin Ahmed",
+            "email": "mailtokmahmed@gmail.com",
+            "homepage": "https://github.com/tzsk",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5.1",
+        "php" : "~5.6|~7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : ">=5.4.3",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tzsk\\ScrapePod\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ],
+        "psr-4": {
+            "Tzsk\\ScrapePod\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Tzsk\\ScrapePod\\Provider\\ScrapePodServiceProvider"
+            ],
+            "aliases": {
+                "ScrapePod": "Tzsk\\ScrapePod\\Facade\\ScrapePod"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
