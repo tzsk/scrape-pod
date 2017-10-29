@@ -41,17 +41,37 @@ abstract class AbstractVendor
 		foreach($channel->item as $value) {
 			$items[] = [
 				'title'        => (string) $value->title,
-				'mp3'          => isset($value->enclosure) ? (string) $value->enclosure->attributes()->url : null,
-				'size'         => isset($value->enclosure) ? (int) $value->enclosure->attributes()->length : 0,
+				'mp3'          => $this->getAudioUrl($value),
+				'size'         => $this->getEpisodeSize($value),
 				'duration'     => $this->getEpisodeDuration($value),
 				'description'  => (string) $value->description,
 				'link'         => (string) $value->link,
-				'image'        => $this->getEpisodeImage($value) ? : (string) $channel->image->url,
+				'image'        => $this->getEpisodeImage($value, $channel),
 				'published_at' => $this->getPublishedDate($value),
 			];
 		}
 
 		return $items;
+	}
+
+	/**
+	 * @param SimpleXMLElement $value
+	 *
+	 * @return null|string
+	 */
+	protected function getAudioUrl($value)
+	{
+		return isset($value->enclosure) ? (string) $value->enclosure->attributes()->url : null;
+	}
+
+	/**
+	 * @param SimpleXMLElement $value
+	 *
+	 * @return int
+	 */
+	protected function getEpisodeSize($value)
+	{
+		return isset($value->enclosure) ? (int) $value->enclosure->attributes()->length : 0;
 	}
 
 	/**
@@ -69,7 +89,7 @@ abstract class AbstractVendor
 
 	/**
 	 * @param SimpleXMLElement|mixed $item
-	 * @param $path string
+	 * @param string $path
 	 *
 	 * @return string
 	 */
@@ -101,13 +121,15 @@ abstract class AbstractVendor
 	/**
 	 * @param SimpleXMLElement $item
 	 *
+	 * @param SimpleXMLElement $channel
+	 *
 	 * @return string
 	 */
-	protected function getEpisodeImage($item)
+	protected function getEpisodeImage($item, $channel)
 	{
 		$xmlImage = $this->getValueByPath($item, "image");
 
-		return $xmlImage ? (string) $xmlImage->attributes()->href : null;
+		return $xmlImage ? (string) $xmlImage->attributes()->href : (string) $channel->image->url;
 	}
 
 	/**
