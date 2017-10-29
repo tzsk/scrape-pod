@@ -91,7 +91,7 @@ abstract class AbstractVendor
 	 * @param SimpleXMLElement|mixed $item
 	 * @param string $path
 	 *
-	 * @return string
+	 * @return SimpleXMLElement
 	 */
 	protected function getValueByPath($item, $path)
 	{
