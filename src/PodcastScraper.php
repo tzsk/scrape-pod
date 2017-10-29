@@ -29,26 +29,18 @@ class PodcastScraper
 	public function get($value)
 	{
 		if (strlen($value) < 1) {
-			return [
-				'status'      => false,
-				'message'     => "Search keyword cannot be empty"
-			];
+			return $this->failedResponse("Search keyword cannot be empty");
 		}
 
 		try {
 			$response = $this->search(new Request, $value);
-			$output   = [
+			return [
 				'status'      => true,
 				'data'        => $this->vendor->build($response)
 			];
 		} catch (Exception $except) {
-			$output = [
-				'status'      => false,
-				'message'     => $except->getMessage()
-			];
+			return $this->failedResponse($except->getMessage());
 		}
-
-		return $output;
 	}
 
 	/**
@@ -78,33 +70,16 @@ class PodcastScraper
 	public function find($feedUrl)
 	{
 		if (strlen($feedUrl) < 1) {
-			return [
-				'status'      => false,
-				'message'     => "Feed Url cannot be empty"
-			];
+			return $this->failedResponse("Feed Url cannot be empty");
 		}
 
 		try {
-			$response = $this->read(new Request, $feedUrl);
-
-			libxml_use_internal_errors(true);
-
-			try {
-				$feed = new SimpleXMLElement($response['feed'], LIBXML_NOCDATA, false);
-			} catch (Exception $except) {
-				$response_repaired = Xml::repair($response['feed']);
-				$feed              = new SimpleXMLElement($response_repaired, LIBXML_NOCDATA, false);
-			}
-
 			return [
 				'status'      => true,
-				'data'        => $this->vendor->buildFeed($feed)
+				'data'        => $this->vendor->buildFeed($this->getFeedFromUrl($feedUrl))
 			];
 		} catch (Exception $except) {
-			return [
-				'status'      => true,
-				'message'     => $except->getMessage()
-			];
+			return $this->failedResponse($except->getMessage());
 		}
 	}
 
@@ -137,6 +112,39 @@ class PodcastScraper
 		return [
 			'feed'        => $output,
 			'status'      => true,
+		];
+	}
+
+	/**
+	 * @param string $feedUrl
+	 *
+	 * @return mixed
+	 */
+	protected function getFeedFromUrl($feedUrl)
+	{
+		$response = $this->read(new Request, $feedUrl);
+
+		libxml_use_internal_errors( true );
+
+		try {
+			$feed = new SimpleXMLElement($response['feed'], LIBXML_NOCDATA, false);
+		} catch ( Exception $except ) {
+			$feed = new SimpleXMLElement(Xml::repair($response['feed']), LIBXML_NOCDATA, false );
+		}
+
+		return $feed;
+	}
+
+	/**
+	 * @param string $message
+	 *
+	 * @return array
+	 */
+	protected function failedResponse($message)
+	{
+		return [
+			'status'      => false,
+			'message'     => $message
 		];
 	}
 }
