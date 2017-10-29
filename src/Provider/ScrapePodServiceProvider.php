@@ -9,18 +9,18 @@ class ScrapePodServiceProvider extends ServiceProvider
 	/**
 	 * @return void
 	 */
-    public function boot()
-    {
-	    $this->app->singleton('tzsk-scrape-pod', function() {
-		    return new ScrapePodcast();
-	    });
-    }
+	public function boot()
+	{
+		$this->app->singleton('tzsk-scrape-pod', function() {
+			return new ScrapePodcast();
+		});
+	}
 
 	/**
 	 * @return void
 	 */
-    public function register()
-    {
-        //
-    }
+	public function register()
+	{
+		//
+	}
 }

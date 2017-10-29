@@ -25,13 +25,13 @@ class Request
 		$request = curl_init($url);
 
 		$default_options = [
-           CURLOPT_FAILONERROR    => true,
-           CURLOPT_FOLLOWLOCATION => true,
-           CURLOPT_RETURNTRANSFER => true,
-           CURLOPT_TIMEOUT        => 15,
-           CURLOPT_SSL_VERIFYPEER => 0,
-           CURLINFO_HEADER_OUT    => true
-       ] + $options;
+		   CURLOPT_FAILONERROR    => true,
+		   CURLOPT_FOLLOWLOCATION => true,
+		   CURLOPT_RETURNTRANSFER => true,
+		   CURLOPT_TIMEOUT        => 15,
+		   CURLOPT_SSL_VERIFYPEER => 0,
+		   CURLINFO_HEADER_OUT    => true
+	   ] + $options;
 
 		curl_setopt_array($request, $default_options);
 

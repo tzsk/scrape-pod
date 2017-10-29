@@ -92,7 +92,7 @@ class DigitalPodcast extends AbstractVendor implements VendorInterface
 
 		$output['result_count'] = count($xml->item);
 
-		foreach($xml->item as $value) {
+		foreach ($xml->item as $value) {
 			$output['results'][] = [
 				'title' => (string) $value->title,
 				'rss'   => (string) $value->source,

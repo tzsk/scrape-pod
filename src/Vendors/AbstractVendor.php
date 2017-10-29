@@ -38,7 +38,7 @@ abstract class AbstractVendor
 	protected function getEpisodes($channel)
 	{
 		$items = [];
-		foreach($channel->item as $value) {
+		foreach ($channel->item as $value) {
 			$items[] = [
 				'title'        => (string) $value->title,
 				'mp3'          => $this->getAudioUrl($value),
@@ -142,10 +142,10 @@ abstract class AbstractVendor
 		$categories = $channel->xpath('itunes:category');
 
 		$items = [];
-		foreach ( $categories as $category ) {
+		foreach ($categories as $category) {
 			$item = ['title' => (string) $category->attributes()->text, 'children' => []];
 
-			if (! empty($category->xpath('itunes:category'))) {
+			if (!empty($category->xpath('itunes:category'))) {
 				$inner = $this->fetchCategories($category);
 
 				$item['children'] = $inner;
