@@ -6,19 +6,19 @@ use Tzsk\ScrapePod\ScrapePodcast;
 
 class ScrapePodServiceProvider extends ServiceProvider
 {
-	/**
-	 * @return void
-	 */
+    /**
+     * @return void
+     */
     public function boot()
     {
-	    $this->app->singleton('tzsk-scrape-pod', function() {
-		    return new ScrapePodcast();
-	    });
+        $this->app->singleton('tzsk-scrape-pod', function () {
+            return new ScrapePodcast();
+        });
     }
 
-	/**
-	 * @return void
-	 */
+    /**
+     * @return void
+     */
     public function register()
     {
         //
