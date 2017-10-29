@@ -93,7 +93,7 @@ class Itunes extends AbstractVendor implements VendorInterface
 		$response = json_decode($response['search']);
 		$output['result_count'] = $response->resultCount;
 
-		foreach($response->results as $value) {
+		foreach ($response->results as $value) {
 			$output['results'][] = [
 				'itunes_id' => $value->collectionId,
 				'author'    => $value->artistName,
