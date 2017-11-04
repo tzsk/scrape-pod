@@ -68,6 +68,16 @@ class ScrapePodcast
     }
 
     /**
+     * @param $id
+     *
+     * @return array
+     */
+    public function find($id)
+    {
+        return $this->engine()->get((int) $id);
+    }
+
+    /**
      * @param string $feed
      *
      * @return array
