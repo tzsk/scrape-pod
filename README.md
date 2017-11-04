@@ -58,6 +58,7 @@ Now, inside any method use it like this:
 
 ```php
 $response = ScrapePod::search("Laravel");
+$response = ScrapePod::find("936914258"); # Works only with itunes.
 
 # OR
 
