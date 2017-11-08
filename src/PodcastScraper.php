@@ -96,6 +96,16 @@ class PodcastScraper
     }
 
     /**
+    * @return PodcastScraper
+    */
+    public function original()
+    {
+        $this->vendor->original();
+
+        return $this;
+    }
+
+    /**
      * @param  Request $request
      * @param  string  $feedUrl
      * @return array

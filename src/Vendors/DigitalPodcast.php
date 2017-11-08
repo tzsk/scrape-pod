@@ -101,4 +101,12 @@ class DigitalPodcast extends AbstractVendor implements VendorInterface
 
         return $output;
     }
+
+    /**
+    * @return void
+    */
+    public function original()
+    {
+        $this->isOrginal = true;
+    }
 }

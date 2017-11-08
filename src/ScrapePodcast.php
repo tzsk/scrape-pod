@@ -18,6 +18,11 @@ class ScrapePodcast
     protected $count = 15;
 
     /**
+    * @var bool
+    */
+    protected $isOrginal = false;
+
+    /**
      * ScrapePodcast constructor.
      */
     public function __construct()
@@ -88,10 +93,22 @@ class ScrapePodcast
     }
 
     /**
+     * @return ScrapePodcast
+     */
+    public function original()
+    {
+        $this->isOrginal = true;
+
+        return $this;
+    }
+
+    /**
      * @return PodcastScraper
      */
     protected function engine()
     {
-        return (new PodcastScraper($this->vendor))->limit($this->count);
+        $engine = (new PodcastScraper($this->vendor))->limit($this->count);
+
+        return $this->isOrginal ? $engine->original() : $engine;
     }
 }

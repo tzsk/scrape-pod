@@ -90,6 +90,9 @@ class Itunes extends AbstractVendor implements VendorInterface
     public function build(array $response)
     {
         $response = json_decode($response['search']);
+        if ($this->isOrginal) {
+            return $response;
+        }
         $output['result_count'] = $response->resultCount;
 
         foreach ($response->results as $value) {
@@ -98,7 +101,7 @@ class Itunes extends AbstractVendor implements VendorInterface
                 'author'    => $value->artistName,
                 'title'     => $value->collectionName,
                 'episodes'  => $value->trackCount,
-                'image'     => $value->artworkUrl100,
+                'image'     => $value->artworkUrl600,
                 'rss'       => $value->feedUrl,
                 'itunes'    => $value->collectionViewUrl,
                 'genre'     => $value->primaryGenreName,
@@ -106,5 +109,13 @@ class Itunes extends AbstractVendor implements VendorInterface
         }
 
         return $output;
+    }
+
+    /**
+    * @return void
+    */
+    public function original()
+    {
+        $this->isOrginal = true;
     }
 }

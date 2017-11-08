@@ -8,6 +8,11 @@ use SimpleXMLElement;
 abstract class AbstractVendor
 {
     /**
+    * @var bool
+    */
+    protected $isOrginal = false;
+
+    /**
      * @param SimpleXMLElement $feed
      *
      * @return array
@@ -45,6 +50,7 @@ abstract class AbstractVendor
                 'size'         => $this->getEpisodeSize($value),
                 'duration'     => $this->getEpisodeDuration($value),
                 'description'  => (string) $value->description,
+                'keywords'     => $this->getKeywords($value),
                 'link'         => (string) $value->link,
                 'image'        => $this->getEpisodeImage($value, $channel),
                 'published_at' => $this->getPublishedDate($value),
@@ -52,6 +58,14 @@ abstract class AbstractVendor
         }
 
         return $items;
+    }
+
+    /**
+    * @return array
+    */
+    protected function getKeywords($item)
+    {
+        return array_map('trim', explode(",", $this->getValueByPath($item, 'keywords')));
     }
 
     /**

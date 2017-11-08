@@ -11,7 +11,7 @@ class SearchDigitalPodcastTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->result = $this->scraper->digitalPodcast()->search("laravel");
+        $this->result = $this->scraper->search("laravel");
         $this->failedResult = $this->scraper->search("");
     }
 }

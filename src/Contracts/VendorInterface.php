@@ -42,4 +42,9 @@ interface VendorInterface
      * @return array
      */
     public function buildFeed(SimpleXMLElement $feed);
+
+    /**
+    * @return void
+    */
+    public function original();
 }
